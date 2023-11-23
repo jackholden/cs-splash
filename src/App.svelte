@@ -3,6 +3,27 @@
   import Greet from './lib/Greet.svelte'
   import { onMount } from "svelte";
 
+  import {getCurrent, Window} from "@tauri-apps/api/window"
+
+const appWindow = getCurrent();
+
+// Creating new windows:
+// alternatively, load a remote URL:
+
+
+function windowTest(){
+  const webview = new Window("theUniqueLabel", {
+  url: "https://github.com/tauri-apps/tauri",
+});
+  }
+
+  function loadingTest(){
+  const webview = new Window("splashscreen", {
+  url: "/public/splashscreen.html",
+});
+webview.show();
+  }
+
   onMount(async () => {
         // await invoke("close_splashscreen"); -- try to keep splashscreen open
     });
@@ -29,6 +50,8 @@
 
   <div class="row">
     <Greet />
+    <button on:click={windowTest}>Click me</button>
+    <button on:click={loadingTest}>Click me splash</button>
   </div>
 
 </main>
